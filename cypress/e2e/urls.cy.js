@@ -42,4 +42,35 @@ describe("URL Shortener Page", () => {
       .type("https://www.linkedin.com/in/rachel-lynn-allen/")
       .should("have.value", "https://www.linkedin.com/in/rachel-lynn-allen/");
   });
+
+  it("should be able to submit the form and a new shortened url should render", () => {
+    cy.dataCy("url-title-input")
+      .type("LinkedIn")
+      .should("have.value", "LinkedIn");
+    cy.dataCy("url-short-input")
+      .type("https://www.linkedin.com/in/rachel-lynn-allen/")
+      .should("have.value", "https://www.linkedin.com/in/rachel-lynn-allen/");
+
+    cy.intercept("POST", "http://localhost:3001/api/v1/urls", {
+      fixture: "postUrl",
+    });
+    cy.intercept("GET", "http://localhost:3001/api/v1/urls", {
+      fixture: "addedUrls",
+    });
+    cy.dataCy("shorten-please-button")
+      .click()
+      .then(() => {
+        cy.dataCy("url-card")
+          .last()
+          .within(() => {
+            cy.dataCy("url-title").contains("LinkedIn");
+            cy.dataCy("url-short").contains(
+              "http://localhost:3001/useshorturl/2"
+            );
+            cy.dataCy("url-long").contains(
+              "https://www.linkedin.com/in/rachel-lynn-allen/"
+            );
+          });
+      });
+  });
 });
