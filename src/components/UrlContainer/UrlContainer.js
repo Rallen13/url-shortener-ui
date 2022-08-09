@@ -5,11 +5,11 @@ const UrlContainer = (props) => {
   const urlEls = props.urls.map((url) => {
     return (
       <div className="url" key={url.id} data-cy="url-card">
-        <h3>{url.title}</h3>
-        <a href={url.short_url} target="blank">
+        <h3 data-cy="url-title">{url.title}</h3>
+        <a data-cy="url-short" href={url.short_url} target="blank">
           {url.short_url}
         </a>
-        <p>{url.long_url}</p>
+        <p data-cy="url-long">{url.long_url}</p>
       </div>
     );
   });
