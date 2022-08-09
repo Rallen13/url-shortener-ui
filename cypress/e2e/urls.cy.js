@@ -9,4 +9,8 @@ describe("URL Shortener Page", () => {
   it("should contain a heading", () => {
     cy.dataCy("app-heading").contains("URL Shortener");
   });
+
+  it("should render one card to start", () => {
+    cy.dataCy("url-card").should("have.length", 1);
+  });
 });
