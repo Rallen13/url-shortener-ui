@@ -73,4 +73,25 @@ describe("URL Shortener Page", () => {
           });
       });
   });
+
+  it("should be able to delete a shortened URL", () => {
+    cy.intercept("GET", "http://localhost:3001/api/v1/urls", {
+      fixture: "addedUrls",
+    });
+    cy.visit("http://localhost:3000");
+    cy.dataCy("url-card")
+      .last()
+      .within(() => {
+        cy.intercept("DELETE", "http://localhost:3001/api/v1/urls/4", {
+          fixture: "addedUrls",
+        });
+        cy.intercept("GET", "http://localhost:3001/api/v1/urls", {
+          fixture: "urls",
+        });
+        cy.dataCy("url-cancel-button").click();
+      })
+      .then(() => {
+        cy.dataCy("url-card").should("have.length", 1);
+      });
+  });
 });
