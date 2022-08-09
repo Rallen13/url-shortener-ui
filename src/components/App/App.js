@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import { getUrls, postUrls } from "../../apiCalls";
+import { getUrls, postUrls, deleteUrls } from "../../apiCalls";
 import UrlContainer from "../UrlContainer/UrlContainer";
 import UrlForm from "../UrlForm/UrlForm";
 
@@ -35,6 +35,18 @@ export class App extends Component {
     }
   };
 
+  deleteUrl = async (id) => {
+    try {
+      await deleteUrls(id);
+
+      await getUrls().then((data) => {
+        this.setState({ urls: data.urls });
+      });
+    } catch (err) {
+      alert(`Error: ${err.message}`);
+    }
+  };
+
   render() {
     return (
       <main className="App">
@@ -43,7 +55,7 @@ export class App extends Component {
           <UrlForm addUrl={this.addUrl} />
         </header>
 
-        <UrlContainer urls={this.state.urls} />
+        <UrlContainer urls={this.state.urls} deleteUrl={this.deleteUrl} />
       </main>
     );
   }

@@ -1,8 +1,8 @@
 import React from "react";
 import "./UrlContainer.css";
 
-const UrlContainer = (props) => {
-  const urlEls = props.urls.map((url) => {
+const UrlContainer = ({ urls, deleteUrl }) => {
+  const urlEls = urls.map((url) => {
     return (
       <div className="url" key={url.id} data-cy="url-card">
         <h3 data-cy="url-title">{url.title}</h3>
@@ -10,6 +10,9 @@ const UrlContainer = (props) => {
           {url.short_url}
         </a>
         <p data-cy="url-long">{url.long_url}</p>
+        <button onClick={() => deleteUrl(url.id)} data-cy="url-cancel-button">
+          Delete
+        </button>
       </div>
     );
   });
