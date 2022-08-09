@@ -39,7 +39,7 @@ export class App extends Component {
     return (
       <main className="App">
         <header>
-          <h1>URL Shortener</h1>
+          <h1 data-cy="app-heading">URL Shortener</h1>
           <UrlForm addUrl={this.addUrl} />
         </header>
 
