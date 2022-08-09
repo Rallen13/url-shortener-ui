@@ -33,4 +33,13 @@ describe("URL Shortener Page", () => {
       cy.dataCy("shorten-please-button").should("be.visible");
     });
   });
+
+  it("should be to fill out the form inputs", () => {
+    cy.dataCy("url-title-input")
+      .type("LinkedIn")
+      .should("have.value", "LinkedIn");
+    cy.dataCy("url-short-input")
+      .type("https://www.linkedin.com/in/rachel-lynn-allen/")
+      .should("have.value", "https://www.linkedin.com/in/rachel-lynn-allen/");
+  });
 });
