@@ -25,4 +25,12 @@ describe("URL Shortener Page", () => {
         );
       });
   });
+
+  it("should display a form with inputs for title, URL to Shorten, and a 'Shorten Please!' button", () => {
+    cy.dataCy("url-form").within(() => {
+      cy.dataCy("url-title-input").should("be.visible");
+      cy.dataCy("url-short-input").should("be.visible");
+      cy.dataCy("shorten-please-button").should("be.visible");
+    });
+  });
 });
